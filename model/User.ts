@@ -34,18 +34,21 @@ const messageSchema = new Schema<IMessage>({
 const userSchema = new Schema<User>({
     username: {
         type:String,
-        required:true
+        required:[true,"Please enter a unique username"],
+        trim:true,
+        unique:true
 
     },
     email: {
         type:String,
-        required:true,
+        required:[true,"Please enter a valid email "],
+        trim:true,
         unique:true
 
     },
     password: {
         type:String,
-        required:true
+        required:[true,"password is required"],
 
     }
 })
