@@ -16,7 +16,6 @@ export interface User extends Document{
     isAcceptingMessage:boolean;
     message: IMessage[]
 
-
 }
 
 

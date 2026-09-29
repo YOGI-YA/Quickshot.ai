@@ -7,8 +7,18 @@ string()
 regex(/^[a-zA-Z0-9_]{3,20}$/)
 
 
+
+
 export const signUpSchema = z.object({
     username: usernameValidation,
     email: z.string().email({message:"Invalid email address"}),
     password:z.string().min(6,{message:"Password must be atleast 6 charscters"})
 })
+
+
+
+
+
+
+
+
