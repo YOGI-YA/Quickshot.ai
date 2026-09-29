@@ -29,3 +29,5 @@ export async function dbConnect():Promise<void> {
 
     }
 }
+
+// dbConnect().catch(err => console.log("Database connection Failed",err))
