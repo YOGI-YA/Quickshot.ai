@@ -8,7 +8,8 @@ export async function POST(request: Request) {
     await dbConnect()
 
     try{
-
+     const {username,email,password}  =    await request.json()
+     const existingUserVerifiedByUsername = await UserModel.findOne({username,isVerified:true})
     }catch(error){
         console.log('Error registring user',error)
         return Response.json(
