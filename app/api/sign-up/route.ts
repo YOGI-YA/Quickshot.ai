@@ -31,7 +31,13 @@ export async function POST(request: Request) {
         }),{status:400}
 
         }else{
-            
+            const hashedPassword = await bcrypt.hash(password,10)
+            existingUserVerifiedByEmail.password = hashedPassword
+            existingUserVerifiedByEmail.verifyCode = verifyCode;
+            existingUserVerifiedByEmail.verifyCodeExp = new Date(Date.now() + 3600000)
+
+            await existingUserVerifiedByEmail.save()
+
         }
      }
      else{
