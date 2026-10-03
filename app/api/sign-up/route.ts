@@ -23,11 +23,16 @@ export async function POST(request: Request) {
      const verifyCode = Math.floor(100000 + Math.random()*900000).toString()
 
      if(existingUserVerifiedByEmail){
-        return Response.json({
+        if(existingUserVerifiedByEmail.isVerified){
+            return Response.json({
             success:false,
             message:"User with this email already exists"
 
         }),{status:400}
+
+        }else{
+            
+        }
      }
      else{
        const hashedPassword =  await bcrypt.hash(password,10)
