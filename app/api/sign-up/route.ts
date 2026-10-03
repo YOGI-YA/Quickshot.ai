@@ -19,6 +19,8 @@ export async function POST(request: Request) {
 
      const existingUserVerifiedByEmail =  await UserModel.findOne({email})
 
+     const verifyCode = Math.floor(100000 + Math.random()*900000).toString()
+
      if(existingUserVerifiedByEmail){
         return Response.json({
             success:false,
@@ -28,6 +30,23 @@ export async function POST(request: Request) {
      }
      else{
        const hashedPassword =  await bcrypt.hash(password,10)
+       const expirayDate = new Date()
+       expirayDate.setHours(expirayDate.getHours()+1)
+
+
+       const newUser = new UserModel({
+        username,
+        email,
+        password: hashedPassword,
+        verifyCode,
+        verifyCodeExp:expirayDate,
+        isVerified:false,
+        isAcceptingMessage:true,
+        message:[]
+
+       })
+
+       await newUser.save()
      }
     }catch(error){
         console.log('Error registring user',error)
