@@ -1,4 +1,5 @@
 import 'next-auth'
+import { DefaultSession } from 'next-auth';
 
 declare module 'next-auth' {
     interface User{
@@ -7,4 +8,13 @@ declare module 'next-auth' {
         isAcceptionMessages?:boolean;
         username?:string;
     }
+    interface session{
+        user:{
+            _id?:string;
+        isVerified?:boolean;
+        isAcceptionMessages?:boolean;
+        username?:string;
+        } & DefaultSession['user']
+    }
+
 }
