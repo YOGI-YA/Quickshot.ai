@@ -12,8 +12,18 @@ export const authOptions : NextAuthOptions = {
             id : "credentails",
             name: "Credentials",
             credentials:{
-                username: {label:"Username",type:"text",placeholder:"j smith"},
+                username: {label:"Email",type:"text"},
                 password: {label:"Password", type:"password"}
+            },
+            async authorize(credentials:any):Promise<any>{
+                await dbConnect()
+                try {
+                    
+                } catch (err:any) {
+                    throw new Error()
+                    
+                }
+
             }
         })
     ]
