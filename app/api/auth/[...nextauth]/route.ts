@@ -9,18 +9,18 @@ import { id } from "zod/locales";
 export const authOptions : NextAuthOptions = {
     providers:[
         CredentialsProvider({
-            id : "credentails",
+            id : "credentials",
             name: "Credentials",
             credentials:{
                 username: {label:"Email",type:"text"},
                 password: {label:"Password", type:"password"}
             },
             async authorize(credentials:any):Promise<any>{
-              const user = await dbConnect()
+              await dbConnect()
                 try {
-                    await UserModel.findOne({
+                    const  user = await UserModel.findOne({
                         $or:[
-                            {email:credentials.indetifier},
+                            {email:credentials.identifier},
                             {username:credentials.indetifier},
                             
                         ]
@@ -33,7 +33,7 @@ export const authOptions : NextAuthOptions = {
                         throw new Error('Please verify your account before login')
                     }
 
-                   const isPasswordCorrect =  await bcrypt.compare(credentials.password,user.Password)
+                   const isPasswordCorrect =  await bcrypt.compare(credentials.password,user.password)
                    if(isPasswordCorrect){
                     return user
                    }else{
