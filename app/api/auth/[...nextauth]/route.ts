@@ -1,5 +1,5 @@
 import {NextAuthOptions} from "next-auth";
-import { CredentialsProvider } from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs";
 
 import { dbConnect } from "@/lib/dbConnect";
@@ -60,7 +60,10 @@ export const authOptions : NextAuthOptions = {
         },
         async session({session,token}) {
             if(token){
-                session.user._id=token._id
+                session.user._id = token._id
+                session.user.isVerified= token.isverified
+                session.user.isAcceptingMessages = token.isAcceptingMessage
+                session.user.username = token.username
             }
             return session
         },
