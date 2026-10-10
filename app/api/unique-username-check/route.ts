@@ -28,8 +28,31 @@ export async function GET(request:Request) {
                 message: usernameErrors?.length > 0 
                 ?usernameErrors.join(', ')
                 : 'Invalid query parameters'
-            })
+            },{status:400})
         }
+        
+
+        const  {username} = result.data
+
+        const existedVerifiedUser =  await UserModel.findOne({
+            username,isVerified:true
+        })
+
+        if(existedVerifiedUser){
+            return Response.json({
+                success:false,
+                message:'Usernmae is already taken',
+                
+            },
+        {status:400})
+        }
+
+        return Response.json({
+                success:true,
+                message:'Usernmae is unique',
+                
+            },
+        {status:200})
         
     } catch (error) {
         console.error("Error checking username",error);
