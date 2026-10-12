@@ -62,7 +62,7 @@ export const authOptions : NextAuthOptions = {
             if(token){
                 session.user._id = token._id
                 session.user.isVerified= token.isverified
-                session.user.isAcceptingMessages = token.isAcceptingMessage
+                session.user.isAcceptionMessages = token.isAcceptingMessage
                 session.user.username = token.username
             }
             return session
