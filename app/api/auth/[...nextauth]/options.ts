@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 
 import { dbConnect } from "@/lib/dbConnect";
 import { UserModel } from "@/model/User";
-import { id } from "zod/locales";
 
 export const authOptions : NextAuthOptions = {
     providers:[

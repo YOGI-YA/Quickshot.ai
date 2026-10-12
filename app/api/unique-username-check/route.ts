@@ -41,7 +41,7 @@ export async function GET(request:Request) {
         if(existedVerifiedUser){
             return Response.json({
                 success:false,
-                message:'Usernmae is already taken',
+                message:'Username is already taken',
                 
             },
         {status:400})
@@ -49,7 +49,7 @@ export async function GET(request:Request) {
 
         return Response.json({
                 success:true,
-                message:'Usernmae is unique',
+                message:'Username is unique',
                 
             },
         {status:200})
