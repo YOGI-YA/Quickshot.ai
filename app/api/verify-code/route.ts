@@ -1,5 +1,5 @@
 import {dbConnect} from "@/lib/dbConnect";
-import {UserModel} from "@model/User";
+import {UserModel} from "@/model/User";
 
 
 export async function POST(request:Request) {
@@ -20,9 +20,31 @@ export async function POST(request:Request) {
             },{status:404})
         }
 
-        const isCodeValid = user.verificationCode === code
+        const isCodeValid = user.verifyCode === code;
 
-        const isCodeExpired = user.verificationCodeExpiry && new Date(user.verificationCodeExpiry) < new Date()
+        const isCodeExpired = user.verifyCodeExp && new Date(user.verifyCodeExp) < new Date();
+
+
+
+        if(isCodeValid && isCodeExpired) {
+            user.isVerified = true;
+            await user.save();
+            return Response.json({
+                success:true,
+                message:'User verified successfully'
+            },{status:200})
+        }else if(!isCodeExpired){
+            return Response.json({
+                success:false,
+                message: 'Verification code has expired'
+            },{status:400})
+        }else{
+            return Response.json({
+                success:false,
+                message: 'Invalid verification code'
+            },{status:400})
+        }
+
 
     }catch(err){
         console.log("Error verifying code",err);
