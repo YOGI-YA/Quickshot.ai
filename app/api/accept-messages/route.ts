@@ -108,7 +108,7 @@ async function GET(request:Request) {
 
         return Response.json({
             success:false,
-            message:"Failed to update status to accept messages"
+            message:"Error while getting messages acceptance status"
         },{
             status:500
         })

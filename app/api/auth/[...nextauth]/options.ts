@@ -20,7 +20,7 @@ export const authOptions : NextAuthOptions = {
                     const  user = await UserModel.findOne({
                         $or:[
                             {email:credentials.identifier},
-                            {username:credentials.indetifier},
+                            {username:credentials.identifier},
                             
                         ]
                     })
@@ -40,8 +40,8 @@ export const authOptions : NextAuthOptions = {
                    }
                     
                 } catch (err:any) {
-                    throw new Error()
-                    
+                    console.log("something went wrong while authorizing user",err.message)
+                    throw new Error("An error occurred while authorizing the user")
                 }
 
             }
