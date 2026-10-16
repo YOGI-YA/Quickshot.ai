@@ -5,6 +5,7 @@ import {dbConnect} from "@/lib/dbConnect";
 import {UserModel} from "@/model/User";
 import {User} from "next-auth";
 
+
 async function GET(request: Request) {
     await dbConnect();
 
@@ -47,7 +48,7 @@ async function GET(request: Request) {
         if(!user || user.length ===0){
             return Response.json({
                 success:false,
-                message:"No messages found"
+                message:"User not found"
             },{
                 status:404
             })
